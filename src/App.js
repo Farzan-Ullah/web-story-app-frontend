@@ -1,7 +1,12 @@
-import "./App.css";
-
+import Navbar from "./components/Navbar/Navbar";
+import Categories from "./components/Categories/Categories";
 function App() {
-  return <div> App </div>;
+  return (
+    <div>
+      <Navbar />
+      <Categories />
+    </div>
+  );
 }
 
 export default App;
