@@ -16,9 +16,9 @@
     cursor: pointer;
 }
 
-.category-card:last-child {
+
+.categoryCard:last-child {
     margin-right: 0;
-    /* Remove margin from the last card */
 }
 
 .cardContent {
