@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "./Navbar.module.css";
-import Modal from "../Modal/Modal";
+import RegisterModal from "../RegisterModal/RegisterModal";
 
 export default function Navbar() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -24,7 +24,7 @@ export default function Navbar() {
           <button className={styles.loginBtn}>Sign In</button>
         </div>
       </nav>
-      <Modal isOpen={isModalOpen} onClose={closeModal} />
+      <RegisterModal isOpen={isModalOpen} onClose={closeModal} />
       <br />
     </div>
   );
