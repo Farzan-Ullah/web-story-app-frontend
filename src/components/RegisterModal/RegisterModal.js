@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 // import { useNavigate } from "react-router-dom";
 import { registerUser } from "../../apis/userAuth";
 import styles from "./RegisterModal.module.css";
+// import { ToastContainer, toast } from "react-toastify";
+// import "react-toastify/dist/ReactToastify.css";
 
 const RegisterModal = ({ isOpen, onClose }) => {
   // const [user, setUser] = useState("");
@@ -37,10 +39,31 @@ const RegisterModal = ({ isOpen, onClose }) => {
       alert("Fields can't be empty");
       return;
     }
-    await registerUser(formData);
-  };
 
-  useEffect(() => {}, [formData]);
+    await registerUser(formData);
+    // const isUserExist = await registerUser(formData);
+    // if (!isUserExist) {
+    //   toast.error(isUserExist.errorMessage);
+    // } else {
+    //   // Display success toast
+    //   toast.success("Registration successfull");
+    // } // Display error toast
+
+    // Handle registration failure
+
+    // await registerUser(formData);
+    // try {
+    //   const response = await registerUser(formData);
+    //   if (response.success) {
+    //     toast.success("Registration successful");
+    //   } else {
+    //     toast.error(response.message); // Display error message from the server
+    //   }
+    // } catch (error) {
+    //   console.log(error);
+    //   // Handle registration failure
+    // }
+  };
 
   return (
     <>
@@ -73,6 +96,12 @@ const RegisterModal = ({ isOpen, onClose }) => {
           </div>
         </div>
       )}
+      {/* <ToastContainer
+        position="top-center"
+        autoClose={2000}
+        hideProgressBar={true}
+        closeButton={false}
+      /> */}
     </>
   );
 };
