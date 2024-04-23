@@ -1,11 +1,16 @@
+import { BrowserRouter as Router } from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar";
 import Categories from "./components/Categories/Categories";
+// import LoginModal from "./components/LoginModal/LoginModal";
+// import RegisterModal from "./components/RegisterModal/RegisterModal";
 function App() {
   return (
-    <div>
+    <Router>
       <Navbar />
       <Categories />
-    </div>
+      {/* <LoginModal />
+      <RegisterModal /> */}
+    </Router>
   );
 }
 

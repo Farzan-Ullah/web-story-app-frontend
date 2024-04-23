@@ -13,3 +13,19 @@ export const registerUser = async ({ username, password }) => {
     console.log(error);
   }
 };
+
+export const loginUser = async ({ username, password }) => {
+  try {
+    const reqUrl = `${backendUrl}/userauth/login`;
+    const response = await axios.post(reqUrl, {
+      username,
+      password,
+    });
+
+    localStorage.setItem("token", response.data.token);
+    return response.data.name;
+  } catch (error) {
+    console.log(error);
+    alert("Something went wrong!");
+  }
+};
