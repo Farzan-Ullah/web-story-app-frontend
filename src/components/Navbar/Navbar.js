@@ -43,6 +43,8 @@ export default function Navbar() {
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
 
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   const openRegisterModal = () => {
     setIsRegisterModalOpen(true);
   };
@@ -64,12 +66,21 @@ export default function Navbar() {
       <nav className={styles.navbar}>
         <div className={styles.logo}>SwipTory</div>
         <div className={styles.navBtns}>
-          <button className={styles.registerBtn} onClick={openRegisterModal}>
-            Register Now
-          </button>
-          <button className={styles.loginBtn} onClick={openLoginModal}>
-            Sign In
-          </button>
+          {isLoggedIn && (
+            <button className={styles.registerBtn} onClick={openRegisterModal}>
+              Log Out
+            </button>
+          )}
+          {!isLoggedIn && (
+            <button className={styles.registerBtn} onClick={openRegisterModal}>
+              Register Now
+            </button>
+          )}
+          {!isLoggedIn && (
+            <button className={styles.loginBtn} onClick={openLoginModal}>
+              Sign In
+            </button>
+          )}
         </div>
       </nav>
       <RegisterModal

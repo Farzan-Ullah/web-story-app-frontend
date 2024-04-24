@@ -15,6 +15,8 @@ const RegisterModal = ({ isOpen, onClose }) => {
     password: "",
   });
 
+  const [formSubmitted, setFormSubmitted] = useState(false);
+
   // const handleUsernameChange = (e) => {
   //   setUser(e.target.value);
   // };
@@ -35,36 +37,37 @@ const RegisterModal = ({ isOpen, onClose }) => {
   };
 
   const handleSubmit = async () => {
+    setFormSubmitted(true);
+
     if (!formData.username || !formData.password) {
-      alert("Fields can't be empty");
       return;
     }
 
     await registerUser(formData);
-    // const isUserExist = await registerUser(formData);
-    // if (!isUserExist) {
-    //   toast.error(isUserExist.errorMessage);
-    // } else {
-    //   // Display success toast
-    //   toast.success("Registration successfull");
-    // } // Display error toast
-
-    // Handle registration failure
-
-    // await registerUser(formData);
-    // try {
-    //   const response = await registerUser(formData);
-    //   if (response.success) {
-    //     toast.success("Registration successful");
-    //   } else {
-    //     toast.error(response.message); // Display error message from the server
-    //   }
-    // } catch (error) {
-    //   console.log(error);
-    //   // Handle registration failure
-    // }
+    // Close the modal only if registration is successful
   };
+  // const isUserExist = await registerUser(formData);
+  // if (!isUserExist) {
+  //   toast.error(isUserExist.errorMessage);
+  // } else {
+  //   // Display success toast
+  //   toast.success("Registration successfull");
+  // } // Display error toast
 
+  // Handle registration failure
+
+  // await registerUser(formData);
+  // try {
+  //   const response = await registerUser(formData);
+  //   if (response.success) {
+  //     toast.success("Registration successful");
+  //   } else {
+  //     toast.error(response.message); // Display error message from the server
+  //   }
+  // } catch (error) {
+  //   console.log(error);
+  //   // Handle registration failure
+  // }
   return (
     <>
       {isOpen && (
@@ -80,6 +83,7 @@ const RegisterModal = ({ isOpen, onClose }) => {
                 type={"text"}
                 id="user"
                 name="username"
+                value={formData.username}
                 onChange={handleChange}
               />
             </div>
@@ -89,9 +93,14 @@ const RegisterModal = ({ isOpen, onClose }) => {
                 type={"password"}
                 id="pass"
                 name="password"
+                value={formData.password}
                 onChange={handleChange}
               />
             </div>
+            {formSubmitted && (!formData.username || !formData.password) && (
+              <p className={styles.error}>Fields can't be empty</p>
+            )}
+
             <button onClick={handleSubmit}>Register</button>
           </div>
         </div>
