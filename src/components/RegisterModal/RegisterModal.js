@@ -1,14 +1,12 @@
 import React, { useState } from "react";
 // import { useNavigate } from "react-router-dom";
-import { registerUser } from "../../apis/userAuth";
+import { registerUser, getUserDetails } from "../../apis/userAuth";
+
 import styles from "./RegisterModal.module.css";
 // import { ToastContainer, toast } from "react-toastify";
 // import "react-toastify/dist/ReactToastify.css";
 
-const RegisterModal = ({ isOpen, onClose }) => {
-  // const [user, setUser] = useState("");
-  // const [pass, setPass] = useState("");
-
+const RegisterModal = ({ isOpen, onClose, onSuccess }) => {
   // const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: "",
@@ -17,22 +15,12 @@ const RegisterModal = ({ isOpen, onClose }) => {
 
   const [formSubmitted, setFormSubmitted] = useState(false);
 
-  // const handleUsernameChange = (e) => {
-  //   setUser(e.target.value);
-  // };
-
-  // const handlePasswordChange = (e) => {
-  //   setPass(e.target.value);
-  // };
-
   const handleChange = (event) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };
 
   const handleModalClose = () => {
-    // setUser("");
-    // setPass("");
-    setFormData("");
+    setFormData({ username: "", password: "" });
     onClose();
   };
 
@@ -43,31 +31,16 @@ const RegisterModal = ({ isOpen, onClose }) => {
       return;
     }
 
-    await registerUser(formData);
-    // Close the modal only if registration is successful
+    try {
+      await registerUser(formData);
+      onSuccess(); // Call the onSuccess function passed from the Navbar component
+    } catch (error) {
+      console.error(error);
+    }
+
+    // await registerUser(formData);
   };
-  // const isUserExist = await registerUser(formData);
-  // if (!isUserExist) {
-  //   toast.error(isUserExist.errorMessage);
-  // } else {
-  //   // Display success toast
-  //   toast.success("Registration successfull");
-  // } // Display error toast
 
-  // Handle registration failure
-
-  // await registerUser(formData);
-  // try {
-  //   const response = await registerUser(formData);
-  //   if (response.success) {
-  //     toast.success("Registration successful");
-  //   } else {
-  //     toast.error(response.message); // Display error message from the server
-  //   }
-  // } catch (error) {
-  //   console.log(error);
-  //   // Handle registration failure
-  // }
   return (
     <>
       {isOpen && (
@@ -105,12 +78,6 @@ const RegisterModal = ({ isOpen, onClose }) => {
           </div>
         </div>
       )}
-      {/* <ToastContainer
-        position="top-center"
-        autoClose={2000}
-        hideProgressBar={true}
-        closeButton={false}
-      /> */}
     </>
   );
 };

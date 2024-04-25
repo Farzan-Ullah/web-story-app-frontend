@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 
 import styles from "./LoginModal.module.css";
-import { useNavigate } from "react-router-dom";
+
 import { loginUser } from "../../apis/userAuth";
 // import { ToastContainer, toast } from "react-toastify";
 // import "react-toastify/dist/ReactToastify.css";
 
-const LoginModal = ({ isOpen, onClose }) => {
-  const navigate = useNavigate();
+const LoginModal = ({ isOpen, onClose, onSuccess }) => {
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -18,7 +17,7 @@ const LoginModal = ({ isOpen, onClose }) => {
   };
 
   const handleModalClose = () => {
-    setFormData("");
+    setFormData({ username: "", password: "" });
     onClose();
   };
 
@@ -29,20 +28,11 @@ const LoginModal = ({ isOpen, onClose }) => {
     }
 
     try {
-      // Attempt login
-      const result = await loginUser(formData);
-      if (result) {
-        navigate("/"); // Redirect to home route upon successful login
-      }
+      await loginUser(formData);
+      onSuccess();
     } catch (error) {
-      console.error("Login failed:", error);
-      // Handle login failure, e.g., display error message to user
+      console.error(error);
     }
-    // // const result =
-    // await loginUser(formData);
-    // // if (result) {
-    // //   navigate("/");
-    // // }
   };
 
   return (

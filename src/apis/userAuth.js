@@ -26,6 +26,17 @@ export const loginUser = async ({ username, password }) => {
     return response.data.name;
   } catch (error) {
     console.log(error);
-    alert("Something went wrong!");
+  }
+};
+
+export const getUserDetails = async ({ username }) => {
+  try {
+    const reqUrl = `${backendUrl}/userauth/userdetails`;
+    const response = await axios.post(reqUrl, {
+      username,
+    });
+    return response.data;
+  } catch (error) {
+    console.log(error);
   }
 };
