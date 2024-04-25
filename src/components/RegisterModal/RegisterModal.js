@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 // import { useNavigate } from "react-router-dom";
-import { registerUser, getUserDetails } from "../../apis/userAuth";
+import { registerUser } from "../../apis/userAuth";
 
 import styles from "./RegisterModal.module.css";
 // import { ToastContainer, toast } from "react-toastify";
@@ -45,27 +45,29 @@ const RegisterModal = ({ isOpen, onClose, onSuccess }) => {
     <>
       {isOpen && (
         <div className={styles.overlay}>
-          <div className={styles.modal}>
+          <div className={`${styles.modal} ${styles.registerForm}`}>
             <div className={styles.close} onClick={handleModalClose}>
               &#10006;
             </div>
             <h2>Register to SwipTory</h2>
             <div className={styles.formGroup}>
-              <label htmlFor="user">Username: </label>
+              <label htmlFor="user">UserName </label>
               <input
                 type={"text"}
                 id="user"
                 name="username"
+                placeholder="Enter username"
                 value={formData.username}
                 onChange={handleChange}
               />
             </div>
             <div className={styles.formGroup}>
-              <label htmlFor="pass">Password: </label>
+              <label htmlFor="pass">Password </label>
               <input
                 type={"password"}
                 id="pass"
                 name="password"
+                placeholder="Enter password"
                 value={formData.password}
                 onChange={handleChange}
               />

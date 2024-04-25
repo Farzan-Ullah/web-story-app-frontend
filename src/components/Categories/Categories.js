@@ -84,7 +84,7 @@ export default function Categories() {
           className={styles.categoryCard}
           style={{ backgroundImage: `url(${category.image})` }}
         >
-          <div className={styles.cardContent}>
+          <div className={styles.categoryContent}>
             <h2>{category.category}</h2>
           </div>
         </div>
@@ -100,26 +100,25 @@ export default function Categories() {
   // const filteredStories = filterStoriesByCategory();
   // };
 
-    const generateStories = () =>  storyState.data.map((story, index) => (
-    <div key={index} className={styles.categorySection}>
-      <div
-        className={styles.categoryCard}
-        style={{
-          backgroundImage: `url("${story.image}")`,
-        }}
-      >
-        <div className={styles.cardContent}>
-          <h2>{story.heading}</h2>
-          <p>{story.description}</p>
+  const generateStories = () =>
+    storyState.data.map((story, index) => (
+      <div key={index} className={styles.categorySection}>
+        <div
+          className={styles.categoryCard}
+          style={{
+            backgroundImage: `url("${story.image}")`,
+          }}
+        >
+          <div className={styles.cardContent}>
+            <h2>{story.heading}</h2>
+            <p>{story.description}</p>
+          </div>
         </div>
       </div>
-    </div>
-  ));
+    ));
   return (
     <>
-      <div style={{ display: "flex", flexWrap: "wrap" }}>
-        {categoryGenerator()}
-      </div>
+      <div className={styles.categorySection}>{categoryGenerator()}</div>
       <div
         style={{
           display: "flex",
@@ -128,7 +127,7 @@ export default function Categories() {
           justifyContent: "center",
         }}
       >
-        {/* {generateStories.length >= 0 ? generateStories() : "Nothing to show"} */}
+        {generateStories.length > 0 ? generateStories() : "Nothing to show"}
       </div>
     </>
   );
