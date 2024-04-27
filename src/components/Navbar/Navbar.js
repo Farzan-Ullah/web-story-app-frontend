@@ -1,15 +1,19 @@
 import React, { useState, useEffect, useRef } from "react";
+// import { useNavigate } from "react-router-dom";
 import styles from "./Navbar.module.css";
 import RegisterModal from "../RegisterModal/RegisterModal";
 import LoginModal from "../LoginModal/LoginModal";
 import StoryModal from "../StoryModal/StoryModal";
 
 export default function Navbar() {
+  // const navigate = useNavigate();
+
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isStoryModalOpen, setIsStoryModalOpen] = useState(false);
   const [username, setUsername] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // const [isBookmarksClicked, setIsBookmarksClicked] = useState(false);
 
   const dropdownRef = useRef();
 
@@ -47,7 +51,7 @@ export default function Navbar() {
     setIsLoggedIn(true);
     localStorage.setItem("isLoggedIn", true);
     // setUsername(username);
-    localStorage.setItem("username", username);
+    // localStorage.setItem("username", username);
     closeRegisterModal();
   };
 
@@ -74,8 +78,19 @@ export default function Navbar() {
     }
   };
 
+  // const handleBookmarkClick = () => {
+  //   navigate("/userbookmarks"); // Step 3: Navigate to the desired route
+  //   document.body.requestFullscreen(); // Step 4: Enter full-screen mode
+  // };
+
+  // const handleBookmarkClick = () => {
+  //   setIsBookmarksClicked(true); // Set the state to true when bookmarks are clicked
+  //   navigate("/userbookmarks");
+  // };
+
   return (
     <div>
+      {/* {!isBookmarksClicked && ( */}
       <nav className={styles.navbar}>
         <div className={styles.logo}>SwipTory</div>
         <div className={styles.navBtns}>
@@ -84,7 +99,10 @@ export default function Navbar() {
               <div className={styles.storyBtns}>
                 <button
                   className={styles.bookmarkBtn}
-                  onClick={openRegisterModal}
+                  // onClick={() => {
+                  //   navigate("/userbookmarks");
+                  // }}
+                  // onClick={handleBookmarkClick}
                 >
                   Bookmark
                 </button>
@@ -130,6 +148,7 @@ export default function Navbar() {
           )}
         </div>
       </nav>
+      {/* )} */}
       <RegisterModal
         isOpen={isRegisterModalOpen}
         onClose={closeRegisterModal}

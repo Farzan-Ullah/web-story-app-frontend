@@ -42,6 +42,7 @@ const StoryModal = ({ isOpen, onClose }) => {
     }
 
     await createStories(formData);
+    onClose();
   };
   return (
     <>
@@ -112,13 +113,15 @@ const StoryModal = ({ isOpen, onClose }) => {
                 <option value="Education">Education</option>
               </select>
             </div>
-            {formSubmitted &&
-              (!formData.heading ||
-                !formData.description ||
-                !formData.image ||
-                !formData.category) && (
-                <p className={styles.error}>Fields can't be empty</p>
-              )}
+
+            <div className={styles.ErrorSection}>
+              {formSubmitted &&
+                (!formData.heading ||
+                  !formData.description ||
+                  !formData.image ||
+                  !formData.category) && <p>Please fill out all fields</p>}
+            </div>
+            <br />
             <div className={styles.slideNavBtns}>
               <button className={styles.prevBtn}>Previous</button>
               <button className={styles.nextBtn}>Next</button>
