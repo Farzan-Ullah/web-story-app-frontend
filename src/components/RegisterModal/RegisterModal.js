@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 // import { useNavigate } from "react-router-dom";
 import { registerUser } from "../../apis/userAuth";
 
@@ -7,6 +7,7 @@ import styles from "./RegisterModal.module.css";
 // import "react-toastify/dist/ReactToastify.css";
 
 const RegisterModal = ({ isOpen, onClose, onSuccess }) => {
+  const passwordInputRef = useRef();
   // const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: "",
@@ -31,14 +32,26 @@ const RegisterModal = ({ isOpen, onClose, onSuccess }) => {
       return;
     }
 
-    try {
-      await registerUser(formData);
-      onSuccess(); // Call the onSuccess function passed from the Navbar component
-    } catch (error) {
-      console.error(error);
-    }
+    if (formData.username.length < 8) {
+      try {
+        await registerUser(formData);
+        onSuccess(); // Call the onSuccess function passed from the Navbar component
+        localStorage.setItem("username", formData.username);
+      } catch (error) {
+        console.error(error);
+      }
 
-    // await registerUser(formData);
+      // await registerUser(formData);
+    }
+  };
+
+  const passwordVisibility = () => {
+
+    if (passwordInputRef.current.type === "password") {
+      passwordInputRef.current.type = "text";
+    } else {
+      passwordInputRef.current.type = "password";
+    }
   };
 
   return (
@@ -64,6 +77,7 @@ const RegisterModal = ({ isOpen, onClose, onSuccess }) => {
             <div className={styles.formGroup}>
               <label htmlFor="pass">Password </label>
               <input
+                ref={passwordInputRef}
                 type={"password"}
                 id="pass"
                 name="password"
@@ -72,6 +86,7 @@ const RegisterModal = ({ isOpen, onClose, onSuccess }) => {
                 onChange={handleChange}
               />
             </div>
+            <button onClick={passwordVisibility}>Eye</button>
             {formSubmitted && (!formData.username || !formData.password) && (
               <p className={styles.error}>Fields can't be empty</p>
             )}

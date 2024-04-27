@@ -4,14 +4,11 @@ import { getFullStories } from "../../apis/stories";
 export default function Categories() {
   const [categoryState, setCategory] = useState("All");
   const [allStories, setAllStories] = useState([]);
-  const [storyState, setStory] = useState([]);
-  // const [storyState, setStory] = useState([
-  //   { heading: "", description: "", image: "", category: "" },
-  // ]);
+  const [storiesData, setStoriesData] = useState([]);
 
   useEffect(() => {
     getFullStories().then((data) => {
-      setStory(data);
+      setStoriesData(data);
     });
   }, []);
 
@@ -94,14 +91,14 @@ export default function Categories() {
   // const storyGenerator = () => {
   // storiesData
   //   .filter(
-  //     (storyState) =>
-  //       storyState.type === categoryState || categoryState === "All"
+  //     (storiesData) =>
+  //       storiesData.type === categoryState || categoryState === "All"
   //   )
   // const filteredStories = filterStoriesByCategory();
   // };
 
   const generateStories = () =>
-    storyState.data.map((story, index) => (
+    storiesData.map((story, index) => (
       <div key={index} className={styles.categorySection}>
         <div
           className={styles.categoryCard}
@@ -127,7 +124,7 @@ export default function Categories() {
           justifyContent: "center",
         }}
       >
-        {generateStories.length > 0 ? generateStories() : "Nothing to show"}
+        {storiesData.length > 0 ? generateStories() : "Nothing to show"}
       </div>
     </>
   );

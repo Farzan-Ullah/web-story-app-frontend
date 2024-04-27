@@ -31,8 +31,6 @@ const StoryModal = ({ isOpen, onClose }) => {
   };
 
   const handleSubmit = async () => {
-    getFullStories();
-
     setFormSubmitted(true);
     if (
       !formData.heading ||
@@ -53,6 +51,7 @@ const StoryModal = ({ isOpen, onClose }) => {
             <div className={styles.close} onClick={handleModalClose}>
               &#10006;
             </div>
+            <p>Add upto 6 Slides</p>
             <div className={styles.slidesSelectors}>
               <div className={`${styles.slideSelector} ${styles.selected}`}>
                 Slide 1
@@ -67,6 +66,7 @@ const StoryModal = ({ isOpen, onClose }) => {
                 type={"text"}
                 id="heading"
                 name="heading"
+                placeholder="Your Heading"
                 value={formData.heading}
                 onChange={handleChange}
               />
@@ -78,6 +78,7 @@ const StoryModal = ({ isOpen, onClose }) => {
                 cols="50"
                 id="desc"
                 name="description"
+                placeholder="Story Description"
                 value={formData.description}
                 onChange={handleChange}
               ></textarea>
@@ -88,11 +89,12 @@ const StoryModal = ({ isOpen, onClose }) => {
                 type={"text"}
                 id="img"
                 name="image"
+                placeholder="Add Image url"
                 value={formData.image}
                 onChange={handleChange}
               />
             </div>
-            <div className={styles.formGroup}>
+            <div className={`${styles.formGroup} ${styles.categorySelect}`}>
               <label htmlFor="category">Category: </label>
               <select
                 id="category"
@@ -117,7 +119,13 @@ const StoryModal = ({ isOpen, onClose }) => {
                 !formData.category) && (
                 <p className={styles.error}>Fields can't be empty</p>
               )}
-            <button onClick={handleSubmit}>Post</button>
+            <div className={styles.slideNavBtns}>
+              <button className={styles.prevBtn}>Previous</button>
+              <button className={styles.nextBtn}>Next</button>
+              <button className={styles.postBtn} onClick={handleSubmit}>
+                Post
+              </button>
+            </div>
           </div>
         </div>
       )}

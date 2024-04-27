@@ -1,25 +1,24 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styles from "./Navbar.module.css";
 import RegisterModal from "../RegisterModal/RegisterModal";
 import LoginModal from "../LoginModal/LoginModal";
 import StoryModal from "../StoryModal/StoryModal";
-import { getUserDetails } from "../../apis/userAuth";
 
 export default function Navbar() {
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isStoryModalOpen, setIsStoryModalOpen] = useState(false);
   const [username, setUsername] = useState("");
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const dropdownRef = useRef();
 
   useEffect(() => {
     const loggedIn = localStorage.getItem("isLoggedIn");
     setIsLoggedIn(loggedIn === "true");
     const storedUsername = localStorage.getItem("username");
     setUsername(storedUsername || "");
-  }, []);
+  }, [username, isLoggedIn]);
 
   const openStoryModal = () => {
     setIsStoryModalOpen(true);
@@ -47,7 +46,7 @@ export default function Navbar() {
   const handleSuccessfulRegistration = (username) => {
     setIsLoggedIn(true);
     localStorage.setItem("isLoggedIn", true);
-    setUsername(username);
+    // setUsername(username);
     localStorage.setItem("username", username);
     closeRegisterModal();
   };
@@ -55,8 +54,8 @@ export default function Navbar() {
   const handleSuccessfulLogin = (username) => {
     setIsLoggedIn(true);
     localStorage.setItem("isLoggedIn", true);
-    setUsername(username);
-    localStorage.setItem("username", username);
+    // setUsername(username);
+    // localStorage.setItem("username", username);
     closeLoginModal();
   };
 
@@ -65,11 +64,14 @@ export default function Navbar() {
     localStorage.removeItem("isLoggedIn");
     setUsername("");
     localStorage.removeItem("username");
-    setIsDropdownOpen(false);
   };
 
-  const toggleDropdown = () => {
-    setIsDropdownOpen((prev) => !prev); // Toggle dropdown menu state
+  const dropDownHandler = () => {
+    if (dropdownRef.current.style.display === "none") {
+      dropdownRef.current.style.display = "block";
+    } else {
+      dropdownRef.current.style.display = "none";
+    }
   };
 
   return (
@@ -79,34 +81,38 @@ export default function Navbar() {
         <div className={styles.navBtns}>
           {isLoggedIn ? (
             <>
-              <button
-                className={styles.bookmarkBtn}
-                onClick={openRegisterModal}
-              >
-                Bookmark
-              </button>
-              <button className={styles.addstoryBtn} onClick={openStoryModal}>
-                Add Story
-              </button>
+              <div className={styles.storyBtns}>
+                <button
+                  className={styles.bookmarkBtn}
+                  onClick={openRegisterModal}
+                >
+                  Bookmark
+                </button>
+                <button className={styles.addstoryBtn} onClick={openStoryModal}>
+                  Add Story
+                </button>
+              </div>
               <img
                 src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
                 alt=""
                 className={styles.profileIcon}
               />
-              <div className={styles.navItem} onClick={toggleDropdown}>
-                <div className={styles.hamburgerMenu}>
+              <div className={styles.navItem}>
+                <div className={styles.hamburgerMenu} onClick={dropDownHandler}>
                   <div className={styles.bar}></div>
                   <div className={styles.bar}></div>
                   <div className={styles.bar}></div>
                 </div>
-                {isDropdownOpen && (
-                  <div className={styles.dropdownContent}>
-                    <p>{username}</p>
-                    <button className={styles.logoutBtn} onClick={handleLogout}>
-                      Logout
-                    </button>
-                  </div>
-                )}
+                <div
+                  style={{ display: "none" }}
+                  className={styles.dropdownContent}
+                  ref={dropdownRef}
+                >
+                  <p style={{ fontWeight: "600" }}>{username}</p>
+                  <button className={styles.logoutBtn} onClick={handleLogout}>
+                    Logout
+                  </button>
+                </div>
               </div>
             </>
           ) : (

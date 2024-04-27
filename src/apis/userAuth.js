@@ -23,20 +23,21 @@ export const loginUser = async ({ username, password }) => {
     });
 
     localStorage.setItem("token", response.data.token);
+    localStorage.setItem("username", response.data.name);
     return response.data.name;
   } catch (error) {
     console.log(error);
   }
 };
 
-export const getUserDetails = async ({ username }) => {
-  try {
-    const reqUrl = `${backendUrl}/userauth/userdetails`;
-    const response = await axios.post(reqUrl, {
-      username,
-    });
-    return response.data;
-  } catch (error) {
-    console.log(error);
-  }
-};
+// export const getUserDetails = async () => {
+//   try {
+//     const reqUrl = `${backendUrl}/userauth/userdetails`;
+//     const token = localStorage.getItem("token");
+//     axios.defaults.headers.common["Authorization"] = token;
+//     const response = await axios.get(reqUrl);
+//     console.log(response.data);
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
