@@ -4,6 +4,8 @@ import styles from "./Navbar.module.css";
 import RegisterModal from "../RegisterModal/RegisterModal";
 import LoginModal from "../LoginModal/LoginModal";
 import StoryModal from "../StoryModal/StoryModal";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBookmark } from "@fortawesome/free-solid-svg-icons";
 
 export default function Navbar() {
   // const navigate = useNavigate();
@@ -47,7 +49,7 @@ export default function Navbar() {
   const closeLoginModal = () => {
     setIsLoginModalOpen(false);
   };
-  const handleSuccessfulRegistration = (username) => {
+  const handleSuccessfulRegistration = () => {
     setIsLoggedIn(true);
     localStorage.setItem("isLoggedIn", true);
     // setUsername(username);
@@ -55,7 +57,7 @@ export default function Navbar() {
     closeRegisterModal();
   };
 
-  const handleSuccessfulLogin = (username) => {
+  const handleSuccessfulLogin = () => {
     setIsLoggedIn(true);
     localStorage.setItem("isLoggedIn", true);
     // setUsername(username);
@@ -104,6 +106,7 @@ export default function Navbar() {
                   // }}
                   // onClick={handleBookmarkClick}
                 >
+                  <FontAwesomeIcon icon={faBookmark} />&nbsp;
                   Bookmark
                 </button>
                 <button className={styles.addstoryBtn} onClick={openStoryModal}>
@@ -126,7 +129,16 @@ export default function Navbar() {
                   className={styles.dropdownContent}
                   ref={dropdownRef}
                 >
-                  <p style={{ fontWeight: "600" }}>{username}</p>
+                  <p
+                    style={{
+                      fontWeight: "600",
+                      overflow: "hidden",
+                      whiteSpace: "nowrap",
+                      textOverflow: "ellipsis",
+                    }}
+                  >
+                    {username}
+                  </p>
                   <button className={styles.logoutBtn} onClick={handleLogout}>
                     Logout
                   </button>

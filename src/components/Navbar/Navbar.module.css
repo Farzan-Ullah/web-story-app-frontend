@@ -86,14 +86,14 @@
     font-size: 1em;
     font-weight: 600;
     padding: 10px 30px;
-    margin-top: 20px;
-    margin-left: 20px;
+    margin-top: 50px;
+    margin-left: 45px;
 }
 
 .hamburgerMenu {
     display: inline-block;
     cursor: pointer;
-    margin-left: -3rem;
+    margin-left: -3.5rem;
 }
 
 .bar {
@@ -106,14 +106,14 @@
 .dropdownContent {
     position: absolute;
     top: calc(100% + 16px);
-    right: 5px;
+    right: -20px;
     background-color: #fff;
     border: 1px solid #ccc;
     padding: 10px;
     border-radius: 4px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    height: 100px;
-    width: 150px;
+    height: 150px;
+    width: 200px;
 }
 
 .dropdownContent p {

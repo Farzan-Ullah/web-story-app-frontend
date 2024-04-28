@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 
 import styles from "./LoginModal.module.css";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { loginUser } from "../../apis/userAuth";
 // import { ToastContainer, toast } from "react-toastify";
 // import "react-toastify/dist/ReactToastify.css";
@@ -13,6 +14,7 @@ const LoginModal = ({ isOpen, onClose, onSuccess }) => {
   });
 
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [passwordVisible, setPasswordVisible] = useState(false);
 
   const handleChange = (event) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
@@ -37,6 +39,11 @@ const LoginModal = ({ isOpen, onClose, onSuccess }) => {
     }
   };
 
+  const togglePasswordVisibility = () => {
+    setPasswordVisible(!passwordVisible);
+  };
+
+
   return (
     <>
       {isOpen && (
@@ -46,7 +53,7 @@ const LoginModal = ({ isOpen, onClose, onSuccess }) => {
               &#10006;
             </div>
             <h2>Log In to SwipTory</h2>
-            <div className={styles.formGroup}>
+            <div className={styles.loginFormGroup}>
               <label htmlFor="name">Username: </label>
               <input
                 type={"text"}
@@ -56,16 +63,23 @@ const LoginModal = ({ isOpen, onClose, onSuccess }) => {
                 onChange={handleChange}
               />
             </div>
-            <div className={styles.formGroup}>
-              <label htmlFor="passcode">Password: </label>
+            <div className={styles.loginFormGroup}>
+            <label htmlFor="passcode">Password </label>
               <input
-                type={"password"}
+                // ref={passwordInputRef}
+                // type={"password"}
+                type={passwordVisible ? "text" : "password"}
                 id="passcode"
                 name="password"
                 placeholder="Enter password"
+                value={formData.password}
                 onChange={handleChange}
               />
             </div>
+            <button className={styles.eyeBtn} onClick={togglePasswordVisibility}>
+              {" "}
+              <FontAwesomeIcon icon={passwordVisible ? faEye : faEyeSlash} />
+            </button>
             {formSubmitted && (!formData.username || !formData.password) && (
               <p className={styles.error}>Fields can't be empty</p>
             )}

@@ -9,6 +9,7 @@ export default function Categories() {
   useEffect(() => {
     getFullStories().then((data) => {
       setStoriesData(data);
+      console.log(data);
     });
   }, []);
 
@@ -49,26 +50,14 @@ export default function Categories() {
     },
   ];
 
-  // const storiesData = [
-  //   { story: "Burger", type: "Food" },
-  //   { story: "Pasta", type: "Food" },
-  //   { story: "Protien", type: "Health and Fitness" },
-  //   { story: "Gym", type: "Health and Fitness" },
-  //   { story: "Hollywood", type: "Movie" },
-  //   { story: "Bollywood", type: "Movie" },
-  //   { story: "Planes", type: "Travel" },
-  //   { story: "Trains", type: "Travel" },
-  //   { story: "Mathematics", type: "Education" },
-  //   { story: "Science", type: "Education" },
-  // ];
-
-  // const filterStoriesByCategory = () => {
-  //   if (categoryState === "All") {
-  //     return allStories; // Return all stories if category is "All"
-  //   } else {
-  //     return allStories.filter((story) => story.category === categoryState); // Filter stories based on selected category
-  //   }
-  // };
+  const filterStoriesByCategory = () => {
+    if (categoryState === "All") {
+      console.log(allStories);
+      return allStories; // Return all stories if category is "All"
+    } else {
+      return allStories.filter((story) => story.category === categoryState); // Filter stories based on selected category
+    }
+  };
 
   const categoryGenerator = () =>
     categoryData.map((category, index) => (
@@ -98,21 +87,30 @@ export default function Categories() {
   // };
 
   const generateStories = () =>
-    storiesData.map((story, index) => (
-      <div key={index} className={styles.categorySection}>
-        <div
-          className={styles.categoryCard}
-          style={{
-            backgroundImage: `url("${story.image}")`,
-          }}
-        >
-          <div className={styles.cardContent}>
-            <h2>{story.heading}</h2>
-            <p>{story.description}</p>
+    
+
+    storiesData
+      .filter(
+        (storiesData) =>
+          storiesData.type === categoryState || categoryState === "All"
+      )
+
+      .map((story, index) => (
+        <div key={index} className={styles.categorySection}>
+          <div
+            className={styles.categoryCard}
+            style={{
+              backgroundImage: `url("${story.image}")`,
+            }}
+          >
+            <div className={styles.cardContent}>
+              <h2>{story.heading}</h2>
+              <p>{story.description}</p>
+            </div>
           </div>
         </div>
-      </div>
-    ));
+      ));
+
   return (
     <>
       <div className={styles.categorySection}>{categoryGenerator()}</div>
