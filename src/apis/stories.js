@@ -7,7 +7,7 @@ export const createStories = async (stories) => {
     const token = localStorage.getItem("token");
     axios.defaults.headers.common["Authorization"] = token;
     const response = await axios.post(reqUrl, stories);
-    console.log(response.data);
+    return response.data;
   } catch (error) {
     console.log(error);
   }
