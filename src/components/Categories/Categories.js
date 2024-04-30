@@ -139,7 +139,7 @@ export default function Categories() {
 
   const filteredStoriesData = (category) =>
     storiesData.filter((story) => story.category === category);
-
+  
   const generateStories = (category, index) =>
     filteredStoriesData(category)
       .slice(0, totalStoriesToShow[index])
