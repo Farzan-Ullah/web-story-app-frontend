@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-// import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styles from "./Navbar.module.css";
 import RegisterModal from "../RegisterModal/RegisterModal";
 import LoginModal from "../LoginModal/LoginModal";
@@ -68,6 +68,7 @@ export default function Navbar() {
   const handleLogout = () => {
     setIsLoggedIn(false);
     localStorage.removeItem("isLoggedIn");
+    // localStorage.removeItem("token"); 
     setUsername("");
     localStorage.removeItem("username");
   };
@@ -99,16 +100,17 @@ export default function Navbar() {
           {isLoggedIn ? (
             <>
               <div className={styles.storyBtns}>
-                <button
+                <Link
+                  to="/bookmarks"
                   className={styles.bookmarkBtn}
                   // onClick={() => {
                   //   navigate("/userbookmarks");
                   // }}
                   // onClick={handleBookmarkClick}
                 >
-                  <FontAwesomeIcon icon={faBookmark} />&nbsp;
-                  Bookmark
-                </button>
+                  <FontAwesomeIcon icon={faBookmark} />
+                  &nbsp; Bookmarks
+                </Link>
                 <button className={styles.addstoryBtn} onClick={openStoryModal}>
                   Add Story
                 </button>
@@ -139,9 +141,9 @@ export default function Navbar() {
                   >
                     {username}
                   </p>
-                  <button className={styles.logoutBtn} onClick={handleLogout}>
+                  <Link to="/" className={styles.logoutBtn} onClick={handleLogout}>
                     Logout
-                  </button>
+                  </Link>
                 </div>
               </div>
             </>

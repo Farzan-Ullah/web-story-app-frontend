@@ -1,0 +1,28 @@
+.bookmarkContainer {
+    text-align: center;
+}
+
+.bookmarkContainer img {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 50px;
+}
+
+.bookmarkContainer h2 {
+    color: #FF7373;
+}
+
+.bookmarkContainer a {
+    border: none;
+    border-radius: 20px;
+    background-color: #FF7373;
+    color: white;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 600;
+    padding: 10px 20px;
+    text-decoration: none;
+}

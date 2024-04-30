@@ -24,3 +24,16 @@ export const getFullStories = async () => {
     console.log(error);
   }
 };
+
+export const getStoryById = async (storyId) => {
+  try {
+    const reqUrl = `${backendUrl}/story/getstory/${storyId}`;
+    const token = localStorage.getItem("token");
+    axios.defaults.headers.common["Authorization"] = token;
+    const response = await axios.get(reqUrl);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+

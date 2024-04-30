@@ -43,7 +43,6 @@ const LoginModal = ({ isOpen, onClose, onSuccess }) => {
     setPasswordVisible(!passwordVisible);
   };
 
-
   return (
     <>
       {isOpen && (
@@ -64,7 +63,7 @@ const LoginModal = ({ isOpen, onClose, onSuccess }) => {
               />
             </div>
             <div className={styles.loginFormGroup}>
-            <label htmlFor="passcode">Password </label>
+              <label htmlFor="passcode">Password </label>
               <input
                 // ref={passwordInputRef}
                 // type={"password"}
@@ -76,7 +75,10 @@ const LoginModal = ({ isOpen, onClose, onSuccess }) => {
                 onChange={handleChange}
               />
             </div>
-            <button className={styles.eyeBtn} onClick={togglePasswordVisibility}>
+            <button
+              className={styles.eyeBtn}
+              onClick={togglePasswordVisibility}
+            >
               {" "}
               <FontAwesomeIcon icon={passwordVisible ? faEye : faEyeSlash} />
             </button>
