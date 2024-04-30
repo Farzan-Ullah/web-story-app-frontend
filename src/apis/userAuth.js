@@ -10,7 +10,7 @@ export const registerUser = async ({ username, password }) => {
       password,
     });
     localStorage.setItem("token", response.data.token);
-    console.log(response.data);
+    return response.data;
   } catch (error) {
     console.log(error);
   }
@@ -22,7 +22,7 @@ export const updateUserBookmarks = async (id) => {
     const token = localStorage.getItem("token");
     axios.defaults.headers.common["Authorization"] = token;
     const response = await axios.put(reqUrl, {id});
-    console.log(response.data);
+    return response.data;
   } catch (error) {
     console.log(error);
   }
@@ -34,7 +34,7 @@ export const updateUserLikes = async (id) => {
     const token = localStorage.getItem("token");
     axios.defaults.headers.common["Authorization"] = token;
     const response = await axios.put(reqUrl, {id});
-    console.log(response.data);
+    return response.data;
   } catch (error) {
     console.log(error);
   }
@@ -46,7 +46,7 @@ export const updateUserStories = async (id) => {
     const token = localStorage.getItem("token");
     axios.defaults.headers.common["Authorization"] = token;
     const response = await axios.put(reqUrl, {id});
-    console.log(response.data);
+    return response.data;
   } catch (error) {
     console.log(error);
   }
@@ -77,7 +77,7 @@ export const loginUser = async ({ username, password }) => {
 //     const token = localStorage.getItem("token");
 //     axios.defaults.headers.common["Authorization"] = token;
 //     const response = await axios.get(reqUrl);
-//     console.log(response.data);
+//     return response.data;
 //   } catch (error) {
 //     console.log(error);
 //   }
