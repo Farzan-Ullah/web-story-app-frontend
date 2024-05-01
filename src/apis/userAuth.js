@@ -1,5 +1,5 @@
 import axios from "axios";
-const backendUrl = `https://swiptory-web-story-app-backend.onrender.com`;
+const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
 export const registerUser = async ({ username, password }) => {
   try {
