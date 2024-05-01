@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import styles from "../Categories/Categories.module.css";
-import { getFullStories, getStoryById } from "../../apis/stories";
+import {  getStoryById } from "../../apis/stories";
 import { useParams, Link } from "react-router-dom";
 import {
   updateUserBookmarks,
   updateUserLikes,
-  deleteUserBookmarks,
+  // deleteUserBookmarks,
   getUserById,
 } from "../../apis/userAuth";
 

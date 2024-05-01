@@ -2,8 +2,8 @@ import React, { useEffect, useState, useRef } from "react";
 import styles from "./StoryModal.module.css";
 import {
   createStories,
-  getFullStories,
-  getStoryById,
+  // getFullStories,
+  // getStoryById,
 } from "../../apis/stories";
 
 import { updateUserStories } from "../../apis/userAuth";

@@ -4,14 +4,14 @@ import { getFullStories, getStoryById } from "../../apis/stories";
 import {
   updateUserBookmarks,
   updateUserLikes,
-  deleteUserBookmarks,
+  // deleteUserBookmarks,
   getUserById,
 } from "../../apis/userAuth";
-import { useParams, useLocation } from "react-router-dom";
+// import { useParams, useLocation } from "react-router-dom";
 import categoryData from "../../data/categoriesData";
 
 export default function Categories() {
-  const { id } = useParams();
+  // const { id } = useParams();
   const [categoryState, setCategory] = useState("All");
   const [totalStoriesToShow, setTotalStoriesToShow] = useState(
     Array(categoryData.length - 1).fill(4)
@@ -20,8 +20,8 @@ export default function Categories() {
   const [fullStoryCard, setFullStoryCard] = useState();
   const [currentSlide, setCurrentSlide] = useState(0);
   const [userData, setUserData] = useState();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const location = useLocation();
+
+  // const location = useLocation();
   const bookmarkRef = useRef();
   const likeRef = useRef();
 
@@ -33,7 +33,7 @@ export default function Categories() {
 
   useEffect(() => {
     const loggedIn = localStorage.getItem("isLoggedIn");
-    setIsLoggedIn(loggedIn);
+
     if (loggedIn) {
       getUserById().then((data) => {
         setUserData(data);
