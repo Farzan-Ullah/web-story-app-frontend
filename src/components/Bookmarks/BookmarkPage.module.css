@@ -26,3 +26,315 @@
     padding: 10px 20px;
     text-decoration: none;
 }
+
+/* Category */
+
+.cardsOverlay {
+    position: relative;
+}
+
+.cardsOverlay::before,
+.cardsOverlay::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    width: 100%;
+    transform: translateX(-50%);
+
+}
+
+.cardsOverlay::before {
+    top: 0;
+    height: 20%;
+    background-image: linear-gradient(to bottom, #000 0%, rgba(0, 0, 0, 0.035) 100%);
+}
+
+.cardsOverlay::after {
+    bottom: 0;
+    height: 40%;
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.035) 0%, #000 90%);
+}
+
+.categorySection {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 10px;
+    gap: 1rem;
+}
+
+.categoryCard {
+    width: 230px;
+    height: 210px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-right: 3rem;
+    cursor: pointer;
+}
+
+
+.categoryCard:last-child {
+    margin-right: 0;
+}
+
+.categoryContent {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.categoryContent h2 {
+    color: white;
+    font-size: 1.8em;
+    text-align: center;
+}
+
+.storySectionContainer {
+    padding: 0 1rem;
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.storySectionContainer button {
+    padding: 10px 40px;
+    font-size: 1.125rem;
+    background-color: #FF7373;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: 600;
+    margin-top: 1rem;
+}
+
+.storySection {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin-top: 2rem;
+
+}
+
+.storyCard {
+    position: relative;
+    width: 100%;
+    max-width: calc(25% - 4rem);
+    min-width: 350px;
+    height: 480px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 15px;
+    cursor: pointer;
+    padding: 11px 5px;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.storyContent {
+    position: absolute;
+    left: 1.25rem;
+    bottom: 3rem;
+    text-align: left;
+    color: white;
+    z-index: 9;
+
+}
+
+.storyContent h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.fullStoryCard {
+    position: relative;
+    width: 100%;
+    max-width: 320px;
+    height: 600px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 15px;
+    padding: 28px 15px;
+    box-sizing: border-box;
+    box-shadow: 0 4px 30px 6px #ffffff40;
+    overflow: hidden;
+}
+
+.fullStoryContent {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    color: white;
+}
+
+.fullStory {
+    position: relative;
+    z-index: 9999;
+}
+
+.fullStoryContainer {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.fullStoryOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.actionBtns {
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 10px;
+    width: 100%;
+    bottom: 3px;
+    right: 2px;
+    z-index: 99;
+    padding: 25px 15px;
+
+}
+
+.actionBtns button,
+.actionBtnsUp button {
+    background: transparent;
+    border: none;
+    fill: #fff;
+    cursor: pointer;
+}
+
+.actionBtns button svg,
+.actionBtnsUp button svg {
+    width: auto;
+    height: 30px;
+}
+
+.actionBtns button {
+    cursor: pointer;
+}
+
+.actionBtnsUp {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 10px;
+    width: 100%;
+    z-index: 1;
+
+}
+
+.actionBtnsUp span,
+.actionBtnsUp a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+.noStoryAvailable {
+    margin-top: 70px;
+    margin-bottom: 70px;
+}
+
+.noStoryAvailable h2 {
+    font-size: 20px;
+    font-weight: 600;
+    text-align: center;
+    color: #838383;
+}
+
+.textContent {
+    position: absolute;
+    left: 1rem;
+    bottom: 5rem;
+    text-align: left;
+    color: white;
+    z-index: 1;
+}
+
+.toast {
+    position: absolute;
+    top: -100%;
+    left: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    background-color: #fff;
+    width: fit-content;
+    padding: 0.5rem 2rem;
+    box-shadow: 1px 2px 2px 2px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    transform: translateX(-50%);
+    /* visibility: hidden;
+    opacity: 0; */
+    transition: all 0.5s ease;
+}
+
+.toast span:first-child {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 25px;
+    height: 25px;
+    color: #fff;
+    background-color: rgb(51, 255, 51);
+    border-radius: 50%;
+    padding: 5pxx;
+}
+
+
+.progressBars {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.25rem;
+    width: 100%;
+    margin-bottom: 1rem;
+    z-index: 9;
+}
+
+.progressBar {
+    flex: 1 1 0;
+    width: 100%;
+    height: 5px;
+    background-color: rgb(109, 110, 107);
+    border-radius: 10px;
+}
+
+.progress {
+    width: 0;
+    height: 5px;
+    background-color: #fff;
+    transition-property: width;
+    transition-duration: 4s;
+    transition-timing-function: linear;
+}
+
+
+.fullStoryContainer>.slideNavBtns {
+    height: auto;
+    background-color: transparent;
+    border: none;
+    font-size: 8rem;
+    color: #fff;
+    cursor: pointer;
+}

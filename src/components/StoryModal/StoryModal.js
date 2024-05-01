@@ -1,9 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import styles from "./StoryModal.module.css";
-import { createStories, getFullStories } from "../../apis/stories";
+import {
+  createStories,
+  getFullStories,
+  getStoryById,
+} from "../../apis/stories";
 
-const StoryModal = ({ isOpen, onClose }) => {
-  const [currentSlide, setCurrentSlide] = useState(1);
+import { updateUserStories } from "../../apis/userAuth";
+
+const StoryModal = ({ isOpen, onClose, postId }) => {
+  const [currentSlide, setCurrentSlide] = useState(0);
   const [formData, setFormData] = useState({
     heading: "",
     description: "",
@@ -20,13 +26,26 @@ const StoryModal = ({ isOpen, onClose }) => {
     category: "",
   });
 
+  const firstSlideRef = useRef();
+
+  useEffect(() => {
+    setCurrentSlide(currentSlide);
+  }, [currentSlide]);
+
+  useEffect(() => {
+    if (firstSlideRef) {
+      console.log(firstSlideRef);
+      // firstSlideRef.current.click();
+    }
+  }, []);
+
   const handleModalClose = () => {
     setFormData({
       heading: "",
       description: "",
       image: "",
       category: "",
-    }); // Clear form data
+    });
     onClose();
   };
 
@@ -34,9 +53,23 @@ const StoryModal = ({ isOpen, onClose }) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };
 
+  // const handleChange = (event, index) => {
+  //   const { name, value } = event.target;
+  //   const newSlides = [...formData.slides];
+  //   newSlides[index][name] = value;
+  //   setFormData({ slides: newSlides });
+  // };
+
   const handleCategoryChange = (event) => {
     setFormData({ ...formData, category: event.target.value });
   };
+
+  // const handleCategoryChange = (event, index) => {
+  //   const { value } = event.target;
+  //   const newSlides = [...formData.slides];
+  //   newSlides[index]["category"] = value;
+  //   setFormData({ slides: newSlides });
+  // };
 
   const handleSlidesData = () => {
     setFormSubmitted(true);
@@ -53,6 +86,7 @@ const StoryModal = ({ isOpen, onClose }) => {
     const { heading, description, image, category } = formData;
 
     setSlidesData((prevData) => ({
+      ...prevData,
       heading: [
         ...prevData.heading.slice(0, currentSlide - 1),
         heading,
@@ -83,17 +117,49 @@ const StoryModal = ({ isOpen, onClose }) => {
     }
   };
 
-  const handleCurrentSLide = (event) => {
-    // setFormSubmitted(true);
-    // if (
-    //   !formData.heading ||
-    //   !formData.description ||
-    //   !formData.image ||
-    //   !formData.category
-    // ) {
-    //   return false;
-    // }
+  const handleCurrentSlide = (event) => {
+    setFormSubmitted(true);
+    const slideButtons = document.querySelectorAll("input[type='radio']");
+
+    if (
+      !formData.heading ||
+      !formData.description ||
+      !formData.image ||
+      !formData.category
+    ) {
+      return false;
+    }
+
+    const { heading, description, image, category } = formData;
+
+    setSlidesData((prevData) => ({
+      ...prevData,
+      heading: [
+        ...prevData.heading.slice(0, currentSlide - 1),
+        heading,
+        ...prevData.heading.slice(currentSlide),
+      ],
+      description: [
+        ...prevData.description.slice(0, currentSlide - 1),
+        description,
+        ...prevData.description.slice(currentSlide),
+      ],
+      image: [
+        ...prevData.image.slice(0, currentSlide - 1),
+        image,
+        ...prevData.image.slice(currentSlide),
+      ],
+      category: category,
+    }));
+
+    if (currentSlide < slideButtons.length) {
+      slideButtons[currentSlide].click();
+    }
     setCurrentSlide(event.target.value);
+  };
+
+  const userStories = async (id) => {
+    updateUserStories(id);
   };
 
   const handleSubmit = async () => {
@@ -107,10 +173,11 @@ const StoryModal = ({ isOpen, onClose }) => {
       return false;
     }
 
-    if (slidesData.heading.length >= 3) {
-      await createStories(slidesData);
-    }
-
+    // if (slidesData.heading.length >= 2) {
+    await createStories(slidesData);
+    // }
+    
+    await userStories();
     onClose();
   };
 
@@ -136,7 +203,8 @@ const StoryModal = ({ isOpen, onClose }) => {
             value={`${i + 4}`}
             name="slide-selector"
             id={`selector-${i + 4}`}
-            onChange={(event) => handleCurrentSLide(event)}
+            onChange={(event) => handleCurrentSlide(event)}
+            // onClick={(slideNumber) => handleSlideChange(slideNumber)}
           />
           <label
             htmlFor={`selector-${i + 4}`}
@@ -149,6 +217,18 @@ const StoryModal = ({ isOpen, onClose }) => {
     }
     return slides;
   };
+
+  // const handleSlideChange = (slideNumber) => {
+  //   if (slideNumber === 2) {
+  //     // Clear form data if slide 2 is clicked
+  //     setFormData({
+  //       heading: "",
+  //       description: "",
+  //       image: "",
+  //     });
+  //   }
+  //   setCurrentSlide(slideNumber);
+  // };
 
   return (
     <>
@@ -166,7 +246,11 @@ const StoryModal = ({ isOpen, onClose }) => {
                   value="1"
                   name="slide-selector"
                   id="selector-1"
-                  onChange={(event) => handleCurrentSLide(event)}
+                  ref={firstSlideRef}
+                  onChange={(event) => handleCurrentSlide(event)}
+
+                  // onClick={handleSlidesData}
+                  // onClick={() => handleSlideChange(1)}
                 />
                 <label htmlFor="selector-1" className={styles.slideSelector}>
                   Slide 1
@@ -178,7 +262,9 @@ const StoryModal = ({ isOpen, onClose }) => {
                   value="2"
                   name="slide-selector"
                   id="selector-2"
-                  onChange={(event) => handleCurrentSLide(event)}
+                  onChange={(event) => handleCurrentSlide(event)}
+                  // onClick={handleSlidesData}
+                  // onClick={() => handleSlideChange(2)}
                 />
                 <label htmlFor="selector-2" className={styles.slideSelector}>
                   Slide 2
@@ -190,7 +276,9 @@ const StoryModal = ({ isOpen, onClose }) => {
                   value="3"
                   name="slide-selector"
                   id="selector-3"
-                  onChange={(event) => handleCurrentSLide(event)}
+                  onChange={(event) => handleCurrentSlide(event)}
+                  // onClick={handleSlidesData}
+                  // onClick={() => handleSlideChange(3)}
                 />
                 <label htmlFor="selector-3" className={styles.slideSelector}>
                   Slide 3
@@ -212,6 +300,7 @@ const StoryModal = ({ isOpen, onClose }) => {
                 placeholder="Your Heading"
                 value={formData.heading}
                 onChange={handleChange}
+                // onChange={(e) => handleChange(e, currentSlide - 1)}
               />
             </div>
             <div className={styles.formGroup}>
@@ -224,6 +313,7 @@ const StoryModal = ({ isOpen, onClose }) => {
                 placeholder="Story Description"
                 value={formData.description}
                 onChange={handleChange}
+                // onChange={(e) => handleChange(e, currentSlide - 1)}
               ></textarea>
             </div>
             <div className={styles.formGroup}>
@@ -235,6 +325,7 @@ const StoryModal = ({ isOpen, onClose }) => {
                 placeholder="Add Image url"
                 value={formData.image}
                 onChange={handleChange}
+                // onChange={(e) => handleChange(e, currentSlide - 1)}
               />
             </div>
 
@@ -245,9 +336,10 @@ const StoryModal = ({ isOpen, onClose }) => {
                 name="category"
                 value={formData.category}
                 onChange={handleCategoryChange}
+                // onChange={(e) => handleCategoryChange(e, currentSlide - 1)}
                 disabled={currentSlide <= 1 ? false : true}
               >
-                <option value="" selected disabled>
+                <option value="" selected disabled hidden>
                   Select Category
                 </option>
                 <option value="Food">Food</option>

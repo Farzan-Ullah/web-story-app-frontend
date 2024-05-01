@@ -290,9 +290,20 @@
 }
 
 .progress {
-    width: 50%;
+    width: 0;
     height: 5px;
     background-color: #fff;
-    transition: all 0.5s ease;
+    transition-property: width;
+    transition-duration: 4s;
+    transition-timing-function: linear;
 }
 
+
+.fullStoryContainer>.slideNavBtns {
+    height: auto;
+    background-color: transparent;
+    border: none;
+    font-size: 8rem;
+    color: #fff;
+    cursor: pointer;
+}
