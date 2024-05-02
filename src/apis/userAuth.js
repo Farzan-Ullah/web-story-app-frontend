@@ -111,7 +111,6 @@ export const getUserById = async (userId) => {
     const token = localStorage.getItem("token");
     axios.defaults.headers.common["Authorization"] = token;
     const response = await axios.get(reqUrl);
-    console.log("test");
     return response.data;
   } catch (error) {
     console.log(error);
