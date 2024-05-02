@@ -2,6 +2,7 @@
   "name": "web-frontend",
   "version": "0.1.0",
   "private": true,
+  "proxy": "https://swiptory-web-story-app-backend.onrender.com",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.5.2",
     "@fortawesome/free-brands-svg-icons": "^6.5.2",
